@@ -5,3 +5,5 @@
 #include "Tierra.h"
 
 Tierra::Tierra(unsigned short* defensa):Elemento(defensa,tierra){}
+
+Tierra::~Tierra(){}

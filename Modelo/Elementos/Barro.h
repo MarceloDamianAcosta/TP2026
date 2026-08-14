@@ -11,6 +11,7 @@ class Barro: public Elemento
 {
     public:
     Barro(unsigned short* defensa);
+    ~Barro();
 };
 
 

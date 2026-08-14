@@ -5,3 +5,5 @@
 #include "Lava.h"
 
 Lava::Lava(unsigned short* defensa):Elemento(defensa,lava){}
+
+Lava::~Lava(){}

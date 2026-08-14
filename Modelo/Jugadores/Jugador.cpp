@@ -93,3 +93,5 @@ Elemento* Jugador::getAtacante()
 {
     return atacante;
 }
+
+Jugador::~Jugador() {}

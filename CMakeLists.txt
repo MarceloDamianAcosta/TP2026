@@ -13,7 +13,8 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(Elementos main.cpp
+qt_add_executable(Elementos main.cpp
+        Vista/Nueva.ui
         Modelo/Elementos/Elemento.cpp
         Modelo/Elementos/Elemento.h
         Modelo/Elementos/tipos.h
@@ -43,9 +44,12 @@ add_executable(Elementos main.cpp
         Modelo/Juego.cpp
         Modelo/Juego.h
 )
-target_link_libraries(Elementos
+target_link_libraries(Elementos PRIVATE
         Qt::Core
         Qt::Gui
         Qt::Widgets
 )
 
+set_target_properties(Elementos PROPERTIES
+        AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/Vista"
+)

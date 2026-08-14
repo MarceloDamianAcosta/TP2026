@@ -17,8 +17,8 @@ class Elemento
     unsigned short getVida() const;
     void defender(Tipo atacante);
     unsigned short* getDefensas() const;
+    Tipo getTipo() const;
     virtual ~Elemento()=0;
-    Tipo gettipo() const;
 };
 
 

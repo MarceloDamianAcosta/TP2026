@@ -10,6 +10,7 @@ class Agua:public Elemento
 {
     public:
     Agua(unsigned short* defensa);
+    ~Agua();
 };
 
 

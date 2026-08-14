@@ -5,3 +5,5 @@
 #include "Agua.h"
 
 Agua::Agua(unsigned short* defensa):Elemento(defensa,agua){}
+
+Agua::~Agua(){}

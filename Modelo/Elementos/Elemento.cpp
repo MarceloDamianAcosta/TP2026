@@ -20,3 +20,10 @@ unsigned short* Elemento::getDefensas() const
 {
     return this->defensa;
 }
+
+Tipo Elemento::getTipo() const
+{
+    return this->id;
+}
+
+Elemento::~Elemento() {}

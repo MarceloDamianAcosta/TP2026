@@ -5,3 +5,4 @@
 #include "Barro.h"
 
 Barro::Barro(unsigned short* defensa):Elemento(defensa,barro){}
+Barro::~Barro(){}

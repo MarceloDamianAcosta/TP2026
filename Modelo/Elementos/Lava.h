@@ -10,6 +10,7 @@ class Lava: public Elemento
 {
 public:
     Lava(unsigned short* defensa);
+    ~Lava();
 };
 
 

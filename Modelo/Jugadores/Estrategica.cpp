@@ -9,8 +9,8 @@ void Estrategica::elegir(Elemento* enemigo)
     unsigned short lugarzinio=0;
     for (auto &x:elementos)
     {
-        if (enemigo->getDefensas()[x->gettipo()]<candidato)
-            candidato=enemigo->getDefensas()[x->gettipo()];
+        if (enemigo->getDefensas()[x->getTipo()]<candidato)
+            candidato=enemigo->getDefensas()[x->getTipo()];
             lugar=lugarzinio;
             elegido(lugar);
         lugarzinio++;

@@ -10,6 +10,7 @@ class Vapor:public Elemento
 {
 public:
     Vapor(unsigned short* defensa);
+    ~Vapor();
 };
 
 

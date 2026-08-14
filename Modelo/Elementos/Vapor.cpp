@@ -5,3 +5,4 @@
 #include "Vapor.h"
 
 Vapor::Vapor(unsigned short* defensa):Elemento(defensa,vapor){}
+Vapor::~Vapor(){}

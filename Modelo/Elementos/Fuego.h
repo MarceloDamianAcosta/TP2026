@@ -11,6 +11,7 @@ class Fuego : public Elemento
 {
 public:
     Fuego(unsigned short* defensa);
+    ~Fuego();
 };
 
 

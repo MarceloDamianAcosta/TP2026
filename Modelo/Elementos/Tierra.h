@@ -10,6 +10,7 @@ class Tierra:public Elemento
 {
     public:
     Tierra(unsigned short* defensa);
+    ~Tierra();
 };
 
 
