@@ -9,7 +9,7 @@
 class Super: public IA
 {
     public:
-    Super(std::string nombre,unsigned short cantidad, unsigned short matrix[][5]):IA(nombre,cantidad,matrix){}
+    Super(std::string nombre):IA(nombre){}
     void elegir(Elemento* enemigo) override;
 };
 

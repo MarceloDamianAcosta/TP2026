@@ -9,7 +9,7 @@
 class IA :public Jugador
 {
 public:
-    IA(std::string nombre,unsigned short cantidad, unsigned short matrix[][5]):Jugador(nombre,cantidad,matrix){}
+    IA(std::string nombre):Jugador(nombre){}
     virtual void elegir(Elemento* enemigo)=0;
 };
 

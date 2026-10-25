@@ -25,5 +25,3 @@ Tipo Elemento::getTipo() const
 {
     return this->id;
 }
-
-Elemento::~Elemento() {}

@@ -9,7 +9,7 @@
 class Estrategica:public IA
 {
     public:
-    Estrategica(std::string nombre,unsigned short cantidad, unsigned short matrix[][5]):IA(nombre,cantidad,matrix){};
+    Estrategica(std::string nombre):IA(nombre){};
     void elegir(Elemento* enemigo) override;
     
 };

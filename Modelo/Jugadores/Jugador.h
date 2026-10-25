@@ -17,14 +17,14 @@ class Jugador
     Elemento*atacante;
     unsigned short lugar;
     public:
-    Jugador(std::string nombre,unsigned short cantidad, unsigned short matrix[][5]);
-    void crearElementos(unsigned short cantidad, unsigned short matrix[][5]);
+    Jugador(std::string nombre);
     std::string getNombre();
     void elegido(unsigned short lugar);
     Elemento* getAtacante();
     bool muerto();
     void achicar();
     bool perder();
+    void agregar(Elemento* elemento);
     virtual ~Jugador()=0;
 };
 

@@ -8,7 +8,6 @@
 
 class Elemento
 {
-    protected:
     Tipo id;
     unsigned short vida;
     unsigned short* defensa;
@@ -18,7 +17,6 @@ class Elemento
     void defender(Tipo atacante);
     unsigned short* getDefensas() const;
     Tipo getTipo() const;
-    virtual ~Elemento()=0;
 };
 
 

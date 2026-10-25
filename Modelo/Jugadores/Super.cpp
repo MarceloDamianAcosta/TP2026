@@ -20,4 +20,5 @@ void Super::elegir(Elemento* enemigo)
             break;
         }
     }
+    elegido(ordenDanio[ordenDanio.size()-1]);
 }

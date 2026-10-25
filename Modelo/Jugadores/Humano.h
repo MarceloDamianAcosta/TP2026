@@ -9,7 +9,7 @@
 class Humano:public Jugador
 {
     public:
-    Humano(std::string nombre,unsigned short cantidad, unsigned short matrix[][5]): Jugador(nombre,cantidad,matrix){};
+    Humano(std::string nombre): Jugador(nombre){};
 };
 
 

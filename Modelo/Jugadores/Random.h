@@ -9,7 +9,7 @@
 class Random : public IA
 {
     public:
-    Random(std::string nombre,unsigned short cantidad, unsigned short matrix[][5]):IA(nombre,cantidad,matrix){};
+    Random(std::string nombre):IA(nombre){};
     void elegir(Elemento* enemigo) override;
 };
 

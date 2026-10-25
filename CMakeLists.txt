@@ -18,18 +18,6 @@ qt_add_executable(Elementos main.cpp
         Modelo/Elementos/Elemento.cpp
         Modelo/Elementos/Elemento.h
         Modelo/Elementos/tipos.h
-        Modelo/Elementos/Fuego.cpp
-        Modelo/Elementos/Fuego.h
-        Modelo/Elementos/Agua.cpp
-        Modelo/Elementos/Agua.h
-        Modelo/Elementos/Tierra.cpp
-        Modelo/Elementos/Tierra.h
-        Modelo/Elementos/Barro.cpp
-        Modelo/Elementos/Barro.h
-        Modelo/Elementos/Lava.cpp
-        Modelo/Elementos/Lava.h
-        Modelo/Elementos/Vapor.cpp
-        Modelo/Elementos/Vapor.h
         Modelo/Jugadores/Jugador.cpp
         Modelo/Jugadores/Jugador.h
         Modelo/Jugadores/IA.h
@@ -43,6 +31,19 @@ qt_add_executable(Elementos main.cpp
         Modelo/Jugadores/Humano.h
         Modelo/Juego.cpp
         Modelo/Juego.h
+        Vista/ventanajuego.cpp
+        Vista/ventanajuego.h
+        Vista/ventanajuego.ui
+        Modelo/Combate.cpp
+        Modelo/Combate.h
+        Modelo/Fabrica.cpp
+        Modelo/Fabrica.h
+        Vista/cargar_partida.cpp
+        Vista/cargar_partida.h
+        Vista/cargar_partida.ui
+        Vista/guardar_partida.cpp
+        Vista/guardar_partida.h
+        Vista/guardar_partida.ui
 )
 target_link_libraries(Elementos PRIVATE
         Qt::Core

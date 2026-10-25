@@ -5,22 +5,13 @@
 #ifndef ELEMENTOS_JUEGO_H
 #define ELEMENTOS_JUEGO_H
 #include <QObject>
-#include "Elementos/Agua.h"
-#include "Elementos/Barro.h"
-#include "Elementos/Tierra.h"
 #include "Elementos/Elemento.h"
-#include "Elementos/Fuego.h"
-#include "Elementos/Lava.h"
-#include "Elementos/Vapor.h"
 #include "Elementos/tipos.h"
 #include "Jugadores/Jugador.h"
 #include "Jugadores/Humano.h"
-#include "Jugadores/IA.h"
-#include "Jugadores/Estrategica.h"
-#include "Jugadores/Super.h"
-#include "Jugadores/Random.h"
 
-class Juego:public QObject
+
+class Juego
 {
     unsigned short nronda;
     unsigned short cantidadDeElementos;
@@ -32,9 +23,8 @@ public:
     Juego();
     void ronda();
     void crearia();
-    bool fin();
-
-
+    void intercambio(Jugador *A, Jugador *B);
+    void fin();
 
 };
 
