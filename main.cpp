@@ -1,12 +1,11 @@
 #include <QApplication>
-#include <QWidget>
-#include "ui_Nueva.h"
+#include "Modelo/Juego.h"
+#include "Vista/nueva.h"
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
-    QWidget ventana;
-    Ui::Nueva nueva;
-    nueva.setupUi(&ventana);
-    ventana.show();
+    Juego juego;
+    Nueva nueva(&juego);
+    nueva.show();
     return a.exec();
 }

@@ -15,6 +15,9 @@ find_package(Qt6 COMPONENTS
 
 qt_add_executable(Elementos main.cpp
         Vista/Nueva.ui
+        Vista/nueva.cpp
+        Vista/nueva.h
+        Vista/iconos.qrc
         Modelo/Elementos/Elemento.cpp
         Modelo/Elementos/Elemento.h
         Modelo/Elementos/tipos.h
@@ -34,8 +37,6 @@ qt_add_executable(Elementos main.cpp
         Vista/ventanajuego.cpp
         Vista/ventanajuego.h
         Vista/ventanajuego.ui
-        Modelo/Combate.cpp
-        Modelo/Combate.h
         Modelo/Fabrica.cpp
         Modelo/Fabrica.h
         Vista/cargar_partida.cpp
@@ -50,6 +51,8 @@ target_link_libraries(Elementos PRIVATE
         Qt::Gui
         Qt::Widgets
 )
+
+configure_file(configuracion.txt ${CMAKE_CURRENT_BINARY_DIR}/configuracion.txt COPYONLY)
 
 set_target_properties(Elementos PROPERTIES
         AUTOUIC_SEARCH_PATHS "${CMAKE_CURRENT_SOURCE_DIR}/Vista"

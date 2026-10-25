@@ -4,23 +4,23 @@
 
 #ifndef ELEMENTOS_JUEGO_H
 #define ELEMENTOS_JUEGO_H
-#include <QObject>
 #include "Elementos/Elemento.h"
 #include "Elementos/tipos.h"
 #include "Jugadores/Jugador.h"
 #include "Jugadores/Humano.h"
+#include "Fabrica.h"
 
 
 class Juego
 {
     unsigned short nronda;
-    unsigned short cantidadDeElementos;
     std::vector<Jugador*> jugadores;
-    unsigned short matriz[5][5];
-    unsigned short dificultad;
     Jugador* ganador;
+    Fabrica fabrica;
 public:
     Juego();
+    Configuracion getConfiguracion() const;
+    void iniciar(std::string nombre, const Configuracion& configuracion);
     void ronda();
     void crearia();
     void intercambio(Jugador *A, Jugador *B);

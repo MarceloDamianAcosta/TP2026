@@ -13,12 +13,26 @@
 #include "Jugadores/Super.h"
 #include "Jugadores/Random.h"
 
+struct Configuracion
+{
+    unsigned short dificultad;
+    unsigned short cantidad;
+    unsigned short danio[6][6];
+};
+
 class Fabrica
 {
-   unsigned short**matrix;
+   unsigned short matrix[6][6];
+   unsigned short cantidad;
+   unsigned short dificultad;
 public:
-    Jugador* crearIA(short a, Humano* Adan);
-    void crearE(std::vector<Jugador*>&J, unsigned short cantidad);
+    Fabrica();
+    void leerConfiguracion(std::string archivo);
+    static void completar(unsigned short danio[6][6]);
+    Configuracion getConfiguracion() const;
+    void setConfiguracion(const Configuracion& configuracion);
+    Jugador* crearIA();
+    void crearE(std::vector<Jugador*>&J);
     Jugador* crearJugador(std::string nombre);
 };
 

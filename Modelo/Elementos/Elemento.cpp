@@ -13,7 +13,10 @@ unsigned short Elemento::getVida() const
 
 void Elemento::defender(Tipo atacante)
 {
-    vida=-(100-defensa[atacante]);
+    if (defensa[atacante] >= vida)
+        vida=0;
+    else
+        vida-=defensa[atacante];
 }
 
 unsigned short* Elemento::getDefensas() const

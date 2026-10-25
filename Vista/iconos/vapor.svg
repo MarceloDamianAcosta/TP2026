@@ -1,0 +1,7 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Icono de vapor</title>
+<circle cx="100" cy="100" r="90" fill="#B9C4CC"/>
+<path d="M72 50 C85 70 59 90 72 110 C85 130 59 150 72 170" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+<path d="M100 45 C113 65 87 85 100 105 C113 125 87 145 100 165" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+<path d="M128 50 C141 70 115 90 128 110 C141 130 115 150 128 170" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+</svg>

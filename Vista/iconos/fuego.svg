@@ -1,0 +1,5 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Icono de fuego</title>
+<circle cx="100" cy="100" r="90" fill="#D6432E"/>
+<path d="M100 40 C122 72 137 92 137 118 C137 148 120 170 100 170 C80 170 63 148 63 118 C63 100 72 88 84 74 C84 90 92 96 98 90 C92 72 96 56 100 40 Z" fill="#FCD98A"/>
+</svg>

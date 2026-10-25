@@ -1,0 +1,6 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>Icono de tierra</title>
+<circle cx="100" cy="100" r="90" fill="#8A5A34"/>
+<path d="M45 150 L90 65 L115 105 L140 65 L180 150 Z" fill="#C6E2A0"/>
+<path d="M45 150 L90 65 L107 95 L72 150 Z" fill="#A8CE7C"/>
+</svg>

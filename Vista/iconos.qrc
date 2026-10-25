@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/iconos">
+        <file alias="agua.svg">iconos/agua.svg</file>
+        <file alias="fuego.svg">iconos/fuego.svg</file>
+        <file alias="tierra.svg">iconos/tierra.svg</file>
+        <file alias="barro.svg">iconos/barro.svg</file>
+        <file alias="lava.svg">iconos/lava.svg</file>
+        <file alias="vapor.svg">iconos/vapor.svg</file>
+    </qresource>
+</RCC>

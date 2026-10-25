@@ -6,6 +6,7 @@
 #define ELEMENTOS_VENTANAJUEGO_H
 
 #include <QWidget>
+#include "../Modelo/Juego.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -22,11 +23,12 @@ class VentanaJuego : public QWidget
     Q_OBJECT
 
 public:
-    explicit VentanaJuego(QWidget* parent = nullptr);
+    explicit VentanaJuego(Juego* juego, QWidget* parent = nullptr);
     ~VentanaJuego() override;
 
 private:
     Ui::VentanaJuego* ui;
+    Juego* juego;
 };
 
 

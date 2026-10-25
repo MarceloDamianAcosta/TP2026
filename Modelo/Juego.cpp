@@ -10,9 +10,22 @@ Juego::Juego()
     ganador=nullptr;
 }
 
+Configuracion Juego::getConfiguracion() const
+{
+    return fabrica.getConfiguracion();
+}
+
+void Juego::iniciar(std::string nombre, const Configuracion& configuracion)
+{
+    fabrica.setConfiguracion(configuracion);
+    jugadores.push_back(fabrica.crearJugador(nombre));
+    crearia();
+    fabrica.crearE(jugadores);
+}
+
 void Juego::crearia()
 {
-
+    jugadores.push_back(fabrica.crearIA());
 }
 
 void Juego::ronda()

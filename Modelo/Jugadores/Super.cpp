@@ -17,7 +17,7 @@ void Super::elegir(Elemento* enemigo)
         if (enemigo->getDefensas()[elementos[ordenDanio[i]]->getTipo()]>=enemigo->getVida() )
         {
             elegido(ordenDanio[i]);
-            break;
+            return;
         }
     }
     elegido(ordenDanio[ordenDanio.size()-1]);
