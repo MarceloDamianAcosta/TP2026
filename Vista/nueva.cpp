@@ -40,6 +40,11 @@ Nueva::Nueva(Juego* juego, QWidget* parent) :
     ui->radioButton_3->setChecked(configuracion.dificultad == 3);
     ui->spinBox->setValue(configuracion.cantidad);
     armarTabla();
+    // sin nombre no se puede jugar
+    ui->pushButton->setEnabled(false);
+    connect(ui->lineEdit, &QLineEdit::textChanged, this, [this](const QString& nombre) {
+        ui->pushButton->setEnabled(!nombre.trimmed().isEmpty());
+    });
     connect(ui->pushButton, &QPushButton::clicked, this, &Nueva::jugar);
     connect(ui->tablaDanio, &QTableWidget::cellChanged, this, &Nueva::cambiarDanio);
 }
@@ -108,7 +113,7 @@ void Nueva::jugar()
         configuracion.dificultad = 3;
     configuracion.cantidad = ui->spinBox->value();
 
-    juego->iniciar(ui->lineEdit->text().toStdString(), configuracion);
+    juego->iniciar(ui->lineEdit->text().trimmed().toStdString(), configuracion);
 
     auto* ventana = new VentanaJuego(juego);
     ventana->setAttribute(Qt::WA_DeleteOnClose);

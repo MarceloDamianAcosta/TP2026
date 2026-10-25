@@ -21,6 +21,8 @@ public:
     Juego();
     Configuracion getConfiguracion() const;
     void iniciar(std::string nombre, const Configuracion& configuracion);
+    unsigned short getRonda() const;
+    Jugador* getJugador(unsigned short i) const;
     void ronda();
     void crearia();
     void intercambio(Jugador *A, Jugador *B);

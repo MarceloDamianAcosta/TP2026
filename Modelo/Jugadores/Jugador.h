@@ -25,6 +25,7 @@ class Jugador
     void achicar();
     bool perder();
     void agregar(Elemento* elemento);
+    const std::vector<Elemento*>& getElementos() const;
     virtual ~Jugador()=0;
 };
 

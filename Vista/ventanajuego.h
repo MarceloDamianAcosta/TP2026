@@ -6,6 +6,7 @@
 #define ELEMENTOS_VENTANAJUEGO_H
 
 #include <QWidget>
+#include <QGroupBox>
 #include "../Modelo/Juego.h"
 
 
@@ -29,6 +30,8 @@ public:
 private:
     Ui::VentanaJuego* ui;
     Juego* juego;
+    void actualizar();
+    void mostrarElementos(QGroupBox* caja, Jugador* jugador, bool elegible);
 };
 
 

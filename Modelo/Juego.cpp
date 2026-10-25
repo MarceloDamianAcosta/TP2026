@@ -23,6 +23,16 @@ void Juego::iniciar(std::string nombre, const Configuracion& configuracion)
     fabrica.crearE(jugadores);
 }
 
+unsigned short Juego::getRonda() const
+{
+    return nronda;
+}
+
+Jugador* Juego::getJugador(unsigned short i) const
+{
+    return jugadores[i];
+}
+
 void Juego::crearia()
 {
     jugadores.push_back(fabrica.crearIA());

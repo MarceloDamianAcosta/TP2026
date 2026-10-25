@@ -46,6 +46,11 @@ void Jugador::achicar()
     atacante=nullptr;
 }
 
+const std::vector<Elemento*>& Jugador::getElementos() const
+{
+    return elementos;
+}
+
 Elemento* Jugador::getAtacante()
 {
     return atacante;
