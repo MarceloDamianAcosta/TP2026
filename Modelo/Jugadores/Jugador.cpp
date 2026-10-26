@@ -6,6 +6,7 @@
 Jugador::Jugador(std::string nombre)
 {
     this->nombre = nombre;
+    atacante = nullptr;
 }
 
 
@@ -42,7 +43,7 @@ void Jugador::agregar(Elemento* elemento)
 void Jugador::achicar()
 {
     elementos.erase(elementos.begin()+lugar);
-    atacante->~Elemento();
+    delete atacante;
     atacante=nullptr;
 }
 
@@ -56,4 +57,8 @@ Elemento* Jugador::getAtacante()
     return atacante;
 }
 
-Jugador::~Jugador() {}
+Jugador::~Jugador()
+{
+    for (Elemento* elemento : elementos)
+        delete elemento;
+}

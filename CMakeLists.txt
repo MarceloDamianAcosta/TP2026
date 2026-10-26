@@ -18,6 +18,7 @@ qt_add_executable(Elementos main.cpp
         Vista/nueva.cpp
         Vista/nueva.h
         Vista/iconos.qrc
+        Vista/ganadores.qrc
         Modelo/Elementos/Elemento.cpp
         Modelo/Elementos/Elemento.h
         Modelo/Elementos/tipos.h

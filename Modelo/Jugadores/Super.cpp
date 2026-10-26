@@ -11,10 +11,10 @@ void Super::elegir(Elemento* enemigo)
     {
         ordenDanio.push_back(i);
     }
-    std::sort(ordenDanio.begin(), ordenDanio.end(),[&](unsigned short& a, unsigned short& b){return enemigo->getDefensas()[elementos[a]->getTipo()] < enemigo->getDefensas()[elementos[b]->getTipo()];});
+    std::sort(ordenDanio.begin(), ordenDanio.end(),[&](unsigned short& a, unsigned short& b){return enemigo->getDanios()[elementos[a]->getTipo()] < enemigo->getDanios()[elementos[b]->getTipo()];});
     for (int i = 0; i < ordenDanio.size(); i++)
     {
-        if (enemigo->getDefensas()[elementos[ordenDanio[i]]->getTipo()]>=enemigo->getVida() )
+        if (enemigo->getDanios()[elementos[ordenDanio[i]]->getTipo()]>=enemigo->getVida() )
         {
             elegido(ordenDanio[i]);
             return;

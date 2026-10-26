@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/ganadores">
+        <file alias="humano.webp">Ganadores/humano.webp</file>
+        <file alias="JOSHUA.webp">Ganadores/Joshua.webp</file>
+        <file alias="RED QUEEN.webp">Ganadores/RED_QUEEN.webp</file>
+        <file alias="SAMARITAN.webp">Ganadores/Samaritan.webp</file>
+    </qresource>
+</RCC>

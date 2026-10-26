@@ -7,6 +7,7 @@
 
 #include <QWidget>
 #include <QGroupBox>
+#include <QButtonGroup>
 #include "../Modelo/Juego.h"
 
 
@@ -30,7 +31,10 @@ public:
 private:
     Ui::VentanaJuego* ui;
     Juego* juego;
+    QButtonGroup* eleccion;
     void actualizar();
+    void jugarRonda();
+    void mostrarGanador();
     void mostrarElementos(QGroupBox* caja, Jugador* jugador, bool elegible);
 };
 

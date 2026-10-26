@@ -4,7 +4,7 @@
 
 #include "Elemento.h"
 
-Elemento::Elemento(unsigned short* defensa, Tipo id):defensa(defensa), id(id),vida(100){}
+Elemento::Elemento(unsigned short* danios, Tipo id):danios(danios), id(id),vida(100){}
 
 unsigned short Elemento::getVida() const
 {
@@ -13,15 +13,15 @@ unsigned short Elemento::getVida() const
 
 void Elemento::defender(Tipo atacante)
 {
-    if (defensa[atacante] >= vida)
+    if (danios[atacante] >= vida)
         vida=0;
     else
-        vida-=defensa[atacante];
+        vida-=danios[atacante];
 }
 
-unsigned short* Elemento::getDefensas() const
+unsigned short* Elemento::getDanios() const
 {
-    return this->defensa;
+    return this->danios;
 }
 
 Tipo Elemento::getTipo() const

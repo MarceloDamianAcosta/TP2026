@@ -8,6 +8,14 @@ Juego::Juego()
 {
     nronda=1;
     ganador=nullptr;
+    humano=nullptr;
+    ia=nullptr;
+}
+
+Juego::~Juego()
+{
+    for (Jugador* jugador : jugadores)
+        delete jugador;
 }
 
 Configuracion Juego::getConfiguracion() const
@@ -17,8 +25,15 @@ Configuracion Juego::getConfiguracion() const
 
 void Juego::iniciar(std::string nombre, const Configuracion& configuracion)
 {
+    // si viene de una partida anterior, arranca de cero
+    for (Jugador* jugador : jugadores)
+        delete jugador;
+    jugadores.clear();
+    nronda=1;
+    ganador=nullptr;
     fabrica.setConfiguracion(configuracion);
-    jugadores.push_back(fabrica.crearJugador(nombre));
+    humano=fabrica.crearJugador(nombre);
+    jugadores.push_back(humano);
     crearia();
     fabrica.crearE(jugadores);
 }
@@ -33,13 +48,28 @@ Jugador* Juego::getJugador(unsigned short i) const
     return jugadores[i];
 }
 
-void Juego::crearia()
+Jugador* Juego::getGanador() const
 {
-    jugadores.push_back(fabrica.crearIA());
+    return ganador;
 }
 
-void Juego::ronda()
+void Juego::crearia()
 {
+    ia=fabrica.crearIA();
+    jugadores.push_back(ia);
+}
+
+void Juego::ronda(unsigned short lugar)
+{
+    humano->elegido(lugar);
+    ia->elegir(humano->getAtacante());
+    intercambio(humano, ia);
+    if (!ia->muerto())
+    {
+        intercambio(ia, humano);
+        humano->muerto();
+    }
+    fin();
     nronda++;
 }
 

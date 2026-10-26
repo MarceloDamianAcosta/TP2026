@@ -50,7 +50,7 @@ void Fabrica::setConfiguracion(const Configuracion& configuracion)
         completar(matrix);
 }
 
-Jugador* Fabrica::crearIA()
+IA* Fabrica::crearIA()
 {
         IA* x=nullptr;
         switch (dificultad)
@@ -119,7 +119,7 @@ void Fabrica::crearE(std::vector<Jugador*>&Jugadores)
         }
 }
 
-Jugador* Fabrica::crearJugador(std::string nombre)
+Humano* Fabrica::crearJugador(std::string nombre)
 {
         return new Humano(nombre);
 }

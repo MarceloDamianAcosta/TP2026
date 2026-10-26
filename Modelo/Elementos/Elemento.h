@@ -10,12 +10,12 @@ class Elemento
 {
     Tipo id;
     unsigned short vida;
-    unsigned short* defensa;
+    unsigned short* danios;
     public:
-    Elemento(unsigned short* defensas, Tipo id);
+    Elemento(unsigned short* danios, Tipo id);
     unsigned short getVida() const;
     void defender(Tipo atacante);
-    unsigned short* getDefensas() const;
+    unsigned short* getDanios() const;
     Tipo getTipo() const;
 };
 

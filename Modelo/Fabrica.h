@@ -31,9 +31,9 @@ public:
     static void completar(unsigned short danio[6][6]);
     Configuracion getConfiguracion() const;
     void setConfiguracion(const Configuracion& configuracion);
-    Jugador* crearIA();
+    IA* crearIA();
     void crearE(std::vector<Jugador*>&J);
-    Jugador* crearJugador(std::string nombre);
+    Humano* crearJugador(std::string nombre);
 };
 
 

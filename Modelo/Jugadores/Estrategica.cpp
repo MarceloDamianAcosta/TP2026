@@ -5,13 +5,14 @@
 #include "Estrategica.h"
 void Estrategica::elegir(Elemento* enemigo)
 {
-    unsigned short candidato=100;
+    unsigned short candidato=0;
     unsigned short lugarzinio=0;
+    elegido(0);
     for (auto &x:elementos)
     {
-        if (enemigo->getDefensas()[x->getTipo()]<candidato)
+        if (enemigo->getDanios()[x->getTipo()]>candidato)
         {
-            candidato=enemigo->getDefensas()[x->getTipo()];
+            candidato=enemigo->getDanios()[x->getTipo()];
             lugar=lugarzinio;
             elegido(lugar);
         }
