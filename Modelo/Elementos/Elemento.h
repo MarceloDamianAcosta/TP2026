@@ -12,7 +12,7 @@ class Elemento
     unsigned short vida;
     unsigned short* danios;
     public:
-    Elemento(unsigned short* danios, Tipo id);
+    Elemento(unsigned short* danios, Tipo id, unsigned short vida = 100);
     unsigned short getVida() const;
     void defender(Tipo atacante);
     unsigned short* getDanios() const;

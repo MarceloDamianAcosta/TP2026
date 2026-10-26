@@ -20,6 +20,7 @@ class Juego
     IA* ia;
     Jugador* ganador;
     Fabrica fabrica;
+    void limpiar();
 public:
     Juego();
     ~Juego();
@@ -28,6 +29,9 @@ public:
     unsigned short getRonda() const;
     Jugador* getJugador(unsigned short i) const;
     Jugador* getGanador() const;
+    bool enCurso() const;
+    void guardar(std::string archivo) const;
+    bool cargar(std::string archivo);
     void ronda(unsigned short lugar);
     void crearia();
     void intercambio(Jugador *A, Jugador *B);

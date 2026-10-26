@@ -4,7 +4,6 @@
 
 #include "nueva.h"
 #include "ui_Nueva.h"
-#include "ventanajuego.h"
 #include <QHeaderView>
 #include <algorithm>
 #include <QProxyStyle>
@@ -114,9 +113,6 @@ void Nueva::jugar()
     configuracion.cantidad = ui->spinBox->value();
 
     juego->iniciar(ui->lineEdit->text().trimmed().toStdString(), configuracion);
-
-    auto* ventana = new VentanaJuego(juego);
-    ventana->setAttribute(Qt::WA_DeleteOnClose);
-    ventana->show();
+    emit partidaCreada();
     close();
 }

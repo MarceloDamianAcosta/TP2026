@@ -17,6 +17,9 @@ qt_add_executable(Elementos main.cpp
         Vista/Nueva.ui
         Vista/nueva.cpp
         Vista/nueva.h
+        Vista/Menu.ui
+        Vista/menu.cpp
+        Vista/menu.h
         Vista/iconos.qrc
         Vista/ganadores.qrc
         Modelo/Elementos/Elemento.cpp
@@ -40,12 +43,6 @@ qt_add_executable(Elementos main.cpp
         Vista/ventanajuego.ui
         Modelo/Fabrica.cpp
         Modelo/Fabrica.h
-        Vista/cargar_partida.cpp
-        Vista/cargar_partida.h
-        Vista/cargar_partida.ui
-        Vista/guardar_partida.cpp
-        Vista/guardar_partida.h
-        Vista/guardar_partida.ui
 )
 target_link_libraries(Elementos PRIVATE
         Qt::Core

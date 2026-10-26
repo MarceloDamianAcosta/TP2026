@@ -4,7 +4,7 @@
 
 #include "Elemento.h"
 
-Elemento::Elemento(unsigned short* danios, Tipo id):danios(danios), id(id),vida(100){}
+Elemento::Elemento(unsigned short* danios, Tipo id, unsigned short vida):danios(danios), id(id),vida(vida){}
 
 unsigned short Elemento::getVida() const
 {

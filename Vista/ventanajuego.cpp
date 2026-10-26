@@ -11,7 +11,6 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QMessageBox>
-#include "nueva.h"
 
 
 VentanaJuego::VentanaJuego(Juego* juego, QWidget* parent) :
@@ -23,6 +22,7 @@ VentanaJuego::VentanaJuego(Juego* juego, QWidget* parent) :
     eleccion = new QButtonGroup(this);
     connect(eleccion, &QButtonGroup::idClicked, this, [this] { ui->pushButton->setEnabled(true); });
     connect(ui->pushButton, &QPushButton::clicked, this, &VentanaJuego::jugarRonda);
+    connect(ui->menu_pb, &QPushButton::clicked, this, &VentanaJuego::irAlMenu);
     actualizar();
 }
 
@@ -45,10 +45,7 @@ void VentanaJuego::mostrarGanador()
     cartel.setText("¡Ganó " + nombre + "!");
     cartel.setIconPixmap(QPixmap(":/ganadores/" + foto + ".webp").scaled(300, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     cartel.exec();
-    auto* nueva = new Nueva(juego);
-    nueva->setAttribute(Qt::WA_DeleteOnClose);
-    nueva->show();
-    close();
+    emit irAlMenu();
 }
 
 void VentanaJuego::actualizar()

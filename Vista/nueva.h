@@ -26,6 +26,9 @@ public:
     explicit Nueva(Juego* juego, QWidget* parent = nullptr);
     ~Nueva() override;
 
+signals:
+    void partidaCreada();
+
 private slots:
     void jugar();
     void cambiarDanio(int fila, int columna);

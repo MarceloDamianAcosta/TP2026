@@ -25,17 +25,52 @@ Configuracion Juego::getConfiguracion() const
 
 void Juego::iniciar(std::string nombre, const Configuracion& configuracion)
 {
-    // si viene de una partida anterior, arranca de cero
-    for (Jugador* jugador : jugadores)
-        delete jugador;
-    jugadores.clear();
-    nronda=1;
-    ganador=nullptr;
+    limpiar();
     fabrica.setConfiguracion(configuracion);
     humano=fabrica.crearJugador(nombre);
     jugadores.push_back(humano);
     crearia();
     fabrica.crearE(jugadores);
+}
+
+// si viene de una partida anterior, arranca de cero
+void Juego::limpiar()
+{
+    for (Jugador* jugador : jugadores)
+        delete jugador;
+    jugadores.clear();
+    nronda=1;
+    ganador=nullptr;
+}
+
+bool Juego::enCurso() const
+{
+    return !jugadores.empty() && !ganador;
+}
+
+void Juego::guardar(std::string archivo) const
+{
+    Partida partida{nronda, humano->getNombre(), {}, {}};
+    for (Elemento* elemento : humano->getElementos())
+        partida.elementosHumano.push_back({elemento->getTipo(), elemento->getVida()});
+    for (Elemento* elemento : ia->getElementos())
+        partida.elementosIA.push_back({elemento->getTipo(), elemento->getVida()});
+    fabrica.guardar(archivo, partida);
+}
+
+bool Juego::cargar(std::string archivo)
+{
+    Partida partida;
+    if (!fabrica.cargar(archivo, partida))
+        return false;
+    limpiar();
+    nronda=partida.ronda;
+    humano=fabrica.crearJugador(partida.humano);
+    jugadores.push_back(humano);
+    crearia();
+    fabrica.crearE(humano, partida.elementosHumano);
+    fabrica.crearE(ia, partida.elementosIA);
+    return true;
 }
 
 unsigned short Juego::getRonda() const
@@ -64,7 +99,10 @@ void Juego::ronda(unsigned short lugar)
     humano->elegido(lugar);
     ia->elegir(humano->getAtacante());
     intercambio(humano, ia);
-    if (!ia->muerto())
+    // si el humano le mata el elemento, la IA elige otro y contraataca igual
+    if (ia->muerto() && !ia->perder())
+        ia->elegir(humano->getAtacante());
+    if (!ia->perder())
     {
         intercambio(ia, humano);
         humano->muerto();

@@ -28,6 +28,9 @@ public:
     explicit VentanaJuego(Juego* juego, QWidget* parent = nullptr);
     ~VentanaJuego() override;
 
+signals:
+    void irAlMenu();
+
 private:
     Ui::VentanaJuego* ui;
     Juego* juego;

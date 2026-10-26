@@ -20,6 +20,16 @@ struct Configuracion
     unsigned short danio[6][6];
 };
 
+using Carta = std::pair<Tipo, unsigned short>; // tipo, vida
+
+struct Partida
+{
+    unsigned short ronda;
+    std::string humano;
+    std::vector<Carta> elementosHumano;
+    std::vector<Carta> elementosIA;
+};
+
 class Fabrica
 {
    unsigned short matrix[6][6];
@@ -28,6 +38,10 @@ class Fabrica
 public:
     Fabrica();
     void leerConfiguracion(std::string archivo);
+    void leerConfiguracion(std::istream& archivo);
+    void guardar(std::string archivo, const Partida& partida) const;
+    bool cargar(std::string archivo, Partida& partida);
+    void crearE(Jugador* jugador, const std::vector<Carta>& cartas);
     static void completar(unsigned short danio[6][6]);
     Configuracion getConfiguracion() const;
     void setConfiguracion(const Configuracion& configuracion);
