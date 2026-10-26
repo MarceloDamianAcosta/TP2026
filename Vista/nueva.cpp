@@ -5,10 +5,10 @@
 #include "nueva.h"
 #include "ui_Nueva.h"
 #include <QHeaderView>
-#include <algorithm>
 #include <QProxyStyle>
 #include <QStyleOptionHeader>
 #include <QPainter>
+#include <QSpinBox>
 
 // dibuja centrado el icono de los encabezados que no tienen texto
 class IconoCentrado : public QProxyStyle
@@ -45,7 +45,6 @@ Nueva::Nueva(Juego* juego, QWidget* parent) :
         ui->pushButton->setEnabled(!nombre.trimmed().isEmpty());
     });
     connect(ui->pushButton, &QPushButton::clicked, this, &Nueva::jugar);
-    connect(ui->tablaDanio, &QTableWidget::cellChanged, this, &Nueva::cambiarDanio);
 }
 
 Nueva::~Nueva()
@@ -76,31 +75,39 @@ void Nueva::armarTabla()
     for (int defensor = agua; defensor <= vapor; defensor++)
         for (int atacante = agua; atacante <= vapor; atacante++)
         {
-            auto* celda = new QTableWidgetItem;
-            celda->setTextAlignment(Qt::AlignCenter);
-            // solo los puros se editan, los compuestos se ven grises
-            if (defensor > tierra || atacante > tierra)
+            // los puros se editan con un QSpinBox de 0 a 100
+            if (defensor <= tierra && atacante <= tierra)
+            {
+                auto* spin = new QSpinBox;
+                spin->setRange(0, 100);
+                spin->setAlignment(Qt::AlignCenter);
+                spin->setValue(configuracion.danio[defensor][atacante]);
+                connect(spin, &QSpinBox::valueChanged, this, [this, defensor, atacante](int valor) {
+                    configuracion.danio[defensor][atacante] = valor;
+                    Fabrica::completar(configuracion.danio);
+                    mostrarDanio();
+                });
+                ui->tablaDanio->setCellWidget(defensor, atacante, spin);
+            }
+            // los compuestos se ven grises y no se editan
+            else
+            {
+                auto* celda = new QTableWidgetItem;
+                celda->setTextAlignment(Qt::AlignCenter);
                 celda->setFlags(Qt::NoItemFlags);
-            ui->tablaDanio->setItem(defensor, atacante, celda);
+                ui->tablaDanio->setItem(defensor, atacante, celda);
+            }
         }
     mostrarDanio();
 }
 
+// actualiza los compuestos, que dependen de los puros
 void Nueva::mostrarDanio()
 {
-    ui->tablaDanio->blockSignals(true);
     for (int defensor = agua; defensor <= vapor; defensor++)
         for (int atacante = agua; atacante <= vapor; atacante++)
-            ui->tablaDanio->item(defensor, atacante)->setData(Qt::DisplayRole, configuracion.danio[defensor][atacante]);
-    ui->tablaDanio->blockSignals(false);
-}
-
-void Nueva::cambiarDanio(int fila, int columna)
-{
-    int valor = ui->tablaDanio->item(fila, columna)->data(Qt::DisplayRole).toInt();
-    configuracion.danio[fila][columna] = std::clamp(valor, 0, 100);
-    Fabrica::completar(configuracion.danio);
-    mostrarDanio();
+            if (defensor > tierra || atacante > tierra)
+                ui->tablaDanio->item(defensor, atacante)->setData(Qt::DisplayRole, configuracion.danio[defensor][atacante]);
 }
 
 void Nueva::jugar()

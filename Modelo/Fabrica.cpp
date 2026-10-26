@@ -5,7 +5,6 @@
 #include "Fabrica.h"
 #include <random>
 #include <fstream>
-#include <sstream>
 
 Fabrica::Fabrica():matrix{}, cantidad(1), dificultad(1)
 {
@@ -15,11 +14,6 @@ Fabrica::Fabrica():matrix{}, cantidad(1), dificultad(1)
 void Fabrica::leerConfiguracion(std::string archivo)
 {
         std::ifstream configuracion(archivo);
-        leerConfiguracion(configuracion);
-}
-
-void Fabrica::leerConfiguracion(std::istream& configuracion)
-{
         configuracion >> dificultad >> cantidad;
         for (unsigned short defensor = agua; defensor <= tierra; defensor++)
                 for (unsigned short atacante = agua; atacante <= tierra; atacante++)
@@ -131,57 +125,84 @@ void Fabrica::crearE(Jugador* jugador, const std::vector<Carta>& cartas)
                 jugador->agregar(new Elemento(matrix[carta.first], carta.first, carta.second));
 }
 
-// arriba lo que no cambia (igual que configuracion.txt), abajo los elementos
 void Fabrica::guardar(std::string archivo, const Partida& partida) const
 {
-        std::ofstream salida(archivo);
-        salida << dificultad << "\n" << cantidad << "\n";
+        Cabecera cabecera{};
+        cabecera.dificultad = dificultad;
+        cabecera.cantidad = cantidad;
         for (unsigned short defensor = agua; defensor <= tierra; defensor++)
-                salida << matrix[defensor][agua] << " " << matrix[defensor][fuego] << " " << matrix[defensor][tierra] << "\n";
-        salida << partida.ronda << "\n" << partida.humano << "\n";
-        for (const std::vector<Carta>* cartas : {&partida.elementosHumano, &partida.elementosIA})
-        {
-                for (const Carta& carta : *cartas)
-                        salida << carta.first << " " << carta.second << " ";
-                salida << "\n";
-        }
+                for (unsigned short atacante = agua; atacante <= tierra; atacante++)
+                        cabecera.danio[defensor][atacante] = matrix[defensor][atacante];
+        cabecera.ronda = partida.ronda;
+        // cabecera{} dejo todo en 0, asi el nombre siempre termina en '\0'
+        partida.humano.copy(cabecera.humano, sizeof(cabecera.humano) - 1);
+        cabecera.cantHumano = partida.elementosHumano.size();
+        cabecera.cantIA = partida.elementosIA.size();
+
+        std::ofstream salida(archivo, std::ios::binary);
+        salida.write(reinterpret_cast<const char*>(&cabecera), sizeof(cabecera));
+        escribirCartas(salida, partida.elementosHumano);
+        escribirCartas(salida, partida.elementosIA);
 }
 
 // devuelve false si el archivo no es una partida valida, y en ese caso no cambia nada
 bool Fabrica::cargar(std::string archivo, Partida& partida)
 {
-        std::ifstream entrada(archivo);
-        if (!entrada)
+        std::ifstream entrada(archivo, std::ios::binary);
+        Cabecera cabecera;
+        entrada.read(reinterpret_cast<char*>(&cabecera), sizeof(cabecera));
+        if (!entrada || !validar(cabecera)
+            || !leerCartas(entrada, cabecera.cantHumano, partida.elementosHumano)
+            || !leerCartas(entrada, cabecera.cantIA, partida.elementosIA))
                 return false;
-        Configuracion anterior = getConfiguracion();
-        leerConfiguracion(entrada);
-        bool valida = entrada && dificultad >= 1 && dificultad <= 3 && cantidad >= 1 && cantidad <= 6;
+        partida.ronda = cabecera.ronda;
+        partida.humano = cabecera.humano;
+        dificultad = cabecera.dificultad;
+        cantidad = cabecera.cantidad;
         for (unsigned short defensor = agua; defensor <= tierra; defensor++)
                 for (unsigned short atacante = agua; atacante <= tierra; atacante++)
-                        valida = valida && matrix[defensor][atacante] <= 100;
-        entrada >> partida.ronda >> std::ws;
-        std::getline(entrada, partida.humano);
-        valida = valida && entrada && partida.ronda >= 1 && !partida.humano.empty();
-        for (std::vector<Carta>* cartas : {&partida.elementosHumano, &partida.elementosIA})
-        {
-                std::string linea;
-                std::getline(entrada, linea);
-                std::istringstream fila(linea);
-                std::vector<unsigned short> numeros;
-                unsigned short numero;
-                while (fila >> numero)
-                        numeros.push_back(numero);
-                // solo numeros, y de a pares (tipo, vida)
-                valida = valida && fila.eof() && !numeros.empty() && numeros.size() % 2 == 0;
-                for (size_t i = 0; valida && i < numeros.size(); i += 2)
-                {
-                        valida = numeros[i] <= vapor && numeros[i + 1] >= 1 && numeros[i + 1] <= 100;
-                        cartas->push_back({static_cast<Tipo>(numeros[i]), numeros[i + 1]});
-                }
-        }
-        if (!valida)
-                setConfiguracion(anterior);
+                        matrix[defensor][atacante] = cabecera.danio[defensor][atacante];
+        completar(matrix);
+        return true;
+}
+
+bool Fabrica::validar(const Cabecera& cabecera)
+{
+        bool valida = cabecera.dificultad >= 1 && cabecera.dificultad <= 3
+                && cabecera.cantidad >= 1 && cabecera.cantidad <= 6
+                && cabecera.ronda >= 1
+                && cabecera.humano[0] != '\0' && cabecera.humano[sizeof(cabecera.humano) - 1] == '\0'
+                && cabecera.cantHumano >= 1 && cabecera.cantHumano <= cabecera.cantidad
+                && cabecera.cantIA >= 1 && cabecera.cantIA <= cabecera.cantidad;
+        for (unsigned short defensor = agua; defensor <= tierra; defensor++)
+                for (unsigned short atacante = agua; atacante <= tierra; atacante++)
+                        valida = valida && cabecera.danio[defensor][atacante] <= 100;
         return valida;
+}
+
+// std::pair no se puede escribir de un solo write, va campo por campo
+void Fabrica::escribirCartas(std::ostream& salida, const std::vector<Carta>& cartas)
+{
+        for (const Carta& carta : cartas)
+        {
+                unsigned short tipo = carta.first;
+                salida.write(reinterpret_cast<const char*>(&tipo), sizeof(tipo));
+                salida.write(reinterpret_cast<const char*>(&carta.second), sizeof(carta.second));
+        }
+}
+
+bool Fabrica::leerCartas(std::istream& entrada, unsigned short cantidad, std::vector<Carta>& cartas)
+{
+        for (unsigned short i = 0; i < cantidad; i++)
+        {
+                unsigned short tipo, vida;
+                entrada.read(reinterpret_cast<char*>(&tipo), sizeof(tipo));
+                entrada.read(reinterpret_cast<char*>(&vida), sizeof(vida));
+                if (!entrada || tipo > vapor || vida < 1 || vida > 100)
+                        return false;
+                cartas.push_back({static_cast<Tipo>(tipo), vida});
+        }
+        return true;
 }
 
 Humano* Fabrica::crearJugador(std::string nombre)

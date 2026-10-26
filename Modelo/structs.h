@@ -27,5 +27,16 @@ struct Partida
     std::vector<Carta> elementosIA;
 };
 
+// lo de tamaño fijo de una partida guardada, se escribe con un solo write
+struct Cabecera
+{
+    unsigned short dificultad;
+    unsigned short cantidad;
+    unsigned short danio[3][3]; // solo los puros
+    unsigned short ronda;
+    char humano[64];
+    unsigned short cantHumano;
+    unsigned short cantIA;
+};
 
 #endif //ELEMENTOS_STRUCTS_H

@@ -31,7 +31,6 @@ signals:
 
 private slots:
     void jugar();
-    void cambiarDanio(int fila, int columna);
 
 private:
     Ui::Nueva* ui;

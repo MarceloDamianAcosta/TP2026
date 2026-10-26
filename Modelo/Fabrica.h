@@ -19,10 +19,12 @@ class Fabrica
    unsigned short matrix[6][6];
    unsigned short cantidad;
    unsigned short dificultad;
+    static bool validar(const Cabecera& cabecera);
+    static void escribirCartas(std::ostream& salida, const std::vector<Carta>& cartas);
+    static bool leerCartas(std::istream& entrada, unsigned short cantidad, std::vector<Carta>& cartas);
 public:
     Fabrica();
     void leerConfiguracion(std::string archivo);
-    void leerConfiguracion(std::istream& archivo);
     void guardar(std::string archivo, const Partida& partida) const;
     bool cargar(std::string archivo, Partida& partida);
     void crearE(Jugador* jugador, const std::vector<Carta>& cartas);

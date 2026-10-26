@@ -46,7 +46,7 @@ void Menu::nueva()
 
 void Menu::cargar()
 {
-    QString archivo = QFileDialog::getOpenFileName(this, "Cargar partida", "", "Partidas (*.txt)");
+    QString archivo = QFileDialog::getOpenFileName(this, "Cargar partida", "", "Partidas (*.dat)");
     if (archivo.isEmpty())
         return;
     if (!juego->cargar(archivo.toStdString()))
@@ -59,7 +59,7 @@ void Menu::cargar()
 
 void Menu::guardar()
 {
-    QString archivo = QFileDialog::getSaveFileName(this, "Guardar partida", "partida.txt", "Partidas (*.txt)");
+    QString archivo = QFileDialog::getSaveFileName(this, "Guardar partida", "partida.dat", "Partidas (*.dat)");
     if (archivo.isEmpty())
         return;
     juego->guardar(archivo.toStdString());
