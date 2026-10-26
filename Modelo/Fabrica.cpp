@@ -166,18 +166,12 @@ bool Fabrica::cargar(std::string archivo, Partida& partida)
         return true;
 }
 
+// solo lo que haria caer al juego: IA inexistente, jugador sin elementos o nombre sin '\0'
 bool Fabrica::validar(const Cabecera& cabecera)
 {
-        bool valida = cabecera.dificultad >= 1 && cabecera.dificultad <= 3
-                && cabecera.cantidad >= 1 && cabecera.cantidad <= 6
-                && cabecera.ronda >= 1
-                && cabecera.humano[0] != '\0' && cabecera.humano[sizeof(cabecera.humano) - 1] == '\0'
-                && cabecera.cantHumano >= 1 && cabecera.cantHumano <= cabecera.cantidad
-                && cabecera.cantIA >= 1 && cabecera.cantIA <= cabecera.cantidad;
-        for (unsigned short defensor = agua; defensor <= tierra; defensor++)
-                for (unsigned short atacante = agua; atacante <= tierra; atacante++)
-                        valida = valida && cabecera.danio[defensor][atacante] <= 100;
-        return valida;
+        return cabecera.dificultad >= 1 && cabecera.dificultad <= 3
+                && cabecera.cantHumano >= 1 && cabecera.cantIA >= 1
+                && cabecera.humano[sizeof(cabecera.humano) - 1] == '\0';
 }
 
 // std::pair no se puede escribir de un solo write, va campo por campo
@@ -198,7 +192,8 @@ bool Fabrica::leerCartas(std::istream& entrada, unsigned short cantidad, std::ve
                 unsigned short tipo, vida;
                 entrada.read(reinterpret_cast<char*>(&tipo), sizeof(tipo));
                 entrada.read(reinterpret_cast<char*>(&vida), sizeof(vida));
-                if (!entrada || tipo > vapor || vida < 1 || vida > 100)
+                // un tipo fuera del enum leeria fuera de la matriz
+                if (!entrada || tipo > vapor)
                         return false;
                 cartas.push_back({static_cast<Tipo>(tipo), vida});
         }
