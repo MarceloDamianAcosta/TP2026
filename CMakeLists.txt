@@ -43,6 +43,7 @@ qt_add_executable(Elementos main.cpp
         Vista/ventanajuego.ui
         Modelo/Fabrica.cpp
         Modelo/Fabrica.h
+        Modelo/structs.h
 )
 target_link_libraries(Elementos PRIVATE
         Qt::Core

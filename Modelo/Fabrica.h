@@ -12,23 +12,7 @@
 #include "Jugadores/Estrategica.h"
 #include "Jugadores/Super.h"
 #include "Jugadores/Random.h"
-
-struct Configuracion
-{
-    unsigned short dificultad;
-    unsigned short cantidad;
-    unsigned short danio[6][6];
-};
-
-using Carta = std::pair<Tipo, unsigned short>; // tipo, vida
-
-struct Partida
-{
-    unsigned short ronda;
-    std::string humano;
-    std::vector<Carta> elementosHumano;
-    std::vector<Carta> elementosIA;
-};
+#include "structs.h"
 
 class Fabrica
 {
